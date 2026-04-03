@@ -1,0 +1,2 @@
+# Browser sessions stored here — git-ignored, chmod 600
+# Format: platform-name.json (Playwright storageState)
