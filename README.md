@@ -40,10 +40,26 @@ AI agents and automation scripts constantly hit walls:
 ## Quick Start
 
 ```bash
-git clone https://github.com/mbahar/oto.git
-cd oto
-npm install
+git clone https://github.com/mbahar/oto.git ~/oto
+cd ~/oto && npm install
 ```
+
+## Adding Oto to OpenClaw / Clawd
+
+Oto ships with an [AgentSkill](https://docs.openclaw.ai) that teaches any OpenClaw agent how to manage sessions automatically.
+
+**Install the skill:**
+```bash
+cp -r ~/oto/skill/oto-sessions ~/.openclaw/skills/
+```
+
+Once installed, your agent will automatically:
+- Know when a session is needed
+- Prompt you to save one if missing
+- Reuse saved sessions for all future automation
+- Switch between accounts (`amazon:personal`, `amazon:jebwa`, etc.)
+
+No extra configuration required.
 
 ---
 
