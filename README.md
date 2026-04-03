@@ -1,56 +1,59 @@
-# Automation Infrastructure
+# Oto 🤖
 
-Murat's personal automation stack. Extensible to any platform.
+Personal automation framework for Murat Bahar.
+
+Oto connects to any platform — lights, cameras, voice, web services — through a unified, extensible interface. Multiple users and contexts (Julia/Jebwa, Murat/Personal, other companies) can share the same codebase.
+
+## Quick Start
+
+```bash
+git clone https://github.com/mbahar/oto.git
+cd oto
+npm install
+```
+
+Add your secrets:
+```bash
+cp secrets/.gitkeep secrets/lifx.env
+# Edit lifx.env: LIFX_TOKEN=your_token_here
+```
 
 ## Structure
 
 ```
-automation/
+oto/
 ├── lib/
-│   ├── browser.js      — Playwright browser utils (connect, sessions, etc.)
+│   ├── browser.js      — Playwright browser utils (connect, sessions)
 │   └── secrets.js      — Load/save API keys from secrets/
 ├── platforms/
-│   ├── lifx.js         — LIFX smart lights ✅
-│   ├── twilio.js       — Twilio voice & SMS ✅
-│   ├── arlo.js         — Arlo cameras (TODO)
-│   ├── amazon.js       — Amazon/Alexa (TODO)
-│   ├── tiktok.js       — TikTok Shop (TODO)
-│   ├── poshmark.js     — Poshmark (TODO)
-│   └── shopify.js      — Shopify (TODO)
+│   ├── lifx.js         — LIFX smart lights
+│   ├── twilio.js       — Twilio voice & SMS
+│   └── ...             — add new platforms here
 ├── scripts/
-│   └── save-session.js — Login once, save browser session for reuse
-├── sessions/           — Browser sessions (git-ignored, chmod 600)
-└── secrets/            — API keys & tokens (git-ignored, chmod 600)
+│   └── save-session.js — Save browser login sessions
+├── sessions/           — Browser sessions (git-ignored)
+└── secrets/            — API keys & tokens (git-ignored)
 ```
 
-## Adding a New Platform
+## Multi-User / Multi-Context
 
-### API-based (token/key):
-1. Create `secrets/platform.env` with your credentials
-2. Create `platforms/platform.js` using `lib/secrets.js` to load them
-3. Done — callable from any script or assistant task
+Oto supports identity switching. Each context (company, personal) can:
+- Use different API keys (separate secrets files)
+- Have saved browser sessions
+- Send from different emails/numbers
 
-### Browser-based (login required):
-1. Run: `node automation/scripts/save-session.js <platform> <url>`
-2. Log in manually in the browser
-3. Press Enter — session saved to `sessions/platform.json`
-4. Future scripts load this session automatically — no login needed
+## Adding a Platform
 
-## Setup Status
+1. Create `secrets/platform.env` with credentials
+2. Create `platforms/platform.js` (see existing for pattern)
+3. Commit and push
 
-| Platform | Type | Status | Setup Needed |
-|----------|------|--------|-------------|
-| LIFX | API token | ⏳ Needs token | Add `secrets/lifx.env` with `LIFX_TOKEN=xxx` |
-| Twilio | API key | ⏳ Needs keys | Add `secrets/twilio.env` with SID/token |
-| Amazon/Alexa | Browser | ⏳ Needs session | Run save-session.js |
-| TikTok | Browser | ⏳ Needs session | Run save-session.js |
-| Indeed | Browser | ⏳ Needs session | Run save-session.js |
-| Poshmark | Browser | ⏳ Needs session | Run save-session.js |
-| Shopify | Browser | ⏳ Needs session | Run save-session.js |
-| Arlo | API | ⏳ TODO | Needs credentials |
+## Security
 
-## Security Notes
-- `secrets/` and `sessions/` are git-ignored — never committed
-- All secret files are chmod 600 (only your user can read)
-- Sessions are equivalent to passwords — treat them accordingly
-- Stored locally on Mac mini only
+- `secrets/` and `sessions/` are always git-ignored
+- All sensitive files are chmod 600
+- Never committed — stays local on the Mac mini
+
+---
+
+Built for Jebwa / Siriuslux LLC operations.
