@@ -4,7 +4,7 @@
 
 Oto is an extensible automation layer that lets you control smart home devices, web platforms, voice services, and more — all from one place, with multiple user contexts (different companies, personal accounts, etc.).
 
-Built and maintained by [@mbahar](https://github.com/mbahar).
+Built and maintained by **Murat Bahar** ([@mbahar](https://github.com/mbahar)).
 
 ---
 
