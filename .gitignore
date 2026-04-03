@@ -1,0 +1,29 @@
+# ============================================
+# SECRETS — NEVER COMMIT THESE
+# ============================================
+secrets/
+sessions/
+*.env
+.env
+.env.*
+*.env.local
+
+# Any file with "secret", "token", "key", "password" in the name
+*secret*
+*token*
+*credentials*
+*password*
+*auth*
+
+# Specific files just in case
+secrets.json
+config.json
+.secrets
+
+# ============================================
+# RUNTIME / TEMP
+# ============================================
+node_modules/
+*.log
+.DS_Store
+tmp/
