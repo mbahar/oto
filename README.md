@@ -44,22 +44,33 @@ git clone https://github.com/mbahar/oto.git ~/oto
 cd ~/oto && npm install
 ```
 
-## Adding Oto to OpenClaw / Clawd
+## 🚀 Adding Oto to OpenClaw / Clawd
 
-Oto ships with an [AgentSkill](https://docs.openclaw.ai) that teaches any OpenClaw agent how to manage sessions automatically.
+Oto is now available as an official **OpenClaw Skill** — `oto-sessions`.
 
-**Install the skill:**
+### Quick Install
+
 ```bash
-cp -r ~/oto/skill/oto-sessions ~/.openclaw/skills/
+cp -r ~/oto/openclaw-skills/oto-sessions ~/.openclaw/skills/
 ```
 
-Once installed, your agent will automatically:
+Once installed, any OpenClaw agent will automatically:
 - Know when a session is needed
 - Prompt you to save one if missing
 - Reuse saved sessions for all future automation
 - Switch between accounts (`amazon:personal`, `amazon:jebwa`, etc.)
 
-No extra configuration required.
+### 📖 Documentation
+
+- **[Skill Overview](openclaw-skills/oto-sessions/SKILL.md)** — Full API reference and usage patterns
+- **[Setup Guide](openclaw-skills/oto-sessions/references/SETUP.md)** — Installation and troubleshooting
+- **[Integration Patterns](openclaw-skills/oto-sessions/references/INTEGRATION.md)** — 5 real-world automation examples
+
+### 🔗 Latest Release
+
+**[v1.0.0-openclaw-skill](https://github.com/mbahar/oto/releases/tag/v1.0.0-openclaw-skill)** — OpenClaw Skill + full documentation
+
+No extra configuration required. Just copy the skill and go.
 
 ---
 
