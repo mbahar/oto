@@ -150,7 +150,7 @@ node ~/oto/scripts/list-sessions.js
 
 ### Save a session
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 ```
 
 ### List sessions
@@ -161,7 +161,7 @@ node ~/oto/scripts/list-sessions.js
 ### Use in automation
 ```js
 const { launchSession } = require('~/oto/lib/session-manager');
-const { page, save } = await launchSession('amazon', 'jebwa');
+const { page, save } = await launchSession('amazon', 'work');
 // Already authenticated — no login wall!
 ```
 
@@ -236,5 +236,5 @@ See VALIDATION.md for complete validation report including:
 
 **Created:** 2025-04-11
 **Version:** 1.0.0
-**Author:** Murat Bahar (@mbahar)
+**Author:** Personal Bahar (@mbahar)
 **License:** MIT

@@ -13,20 +13,20 @@ const { execSync } = require('child_process');
 const { hasSession } = require('~/oto/lib/session-manager');
 
 // In your agent task:
-if (!hasSession('amazon', 'jebwa')) {
+if (!hasSession('amazon', 'work')) {
   console.log('Creating Amazon session...');
   
   // Prompt user to save a session
   return {
     type: 'user-action',
     message: 'Need to create a session first. Run:',
-    command: 'node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa'
+    command: 'node ~/oto/scripts/save-session.js amazon https://www.amazon.com work'
   };
 }
 
 // Safe to use now
 const { launchSession } = require('~/oto/lib/session-manager');
-const { page, save, browser } = await launchSession('amazon', 'jebwa');
+const { page, save, browser } = await launchSession('amazon', 'work');
 
 // Automate...
 await page.goto('https://www.amazon.com/orders');
@@ -71,7 +71,7 @@ const { launchSession } = require('~/oto/lib/session-manager');
 // Load both accounts
 const [personal, business] = await Promise.all([
   launchSession('amazon', 'personal'),
-  launchSession('amazon', 'jebwa')
+  launchSession('amazon', 'work')
 ]);
 
 // Work in parallel
@@ -114,9 +114,9 @@ async function isSessionValid(platform, account) {
 }
 
 // Use it
-if (!await isSessionValid('amazon', 'jebwa')) {
+if (!await isSessionValid('amazon', 'work')) {
   console.log('Session expired — recreate with:');
-  console.log('  node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa');
+  console.log('  node ~/oto/scripts/save-session.js amazon https://www.amazon.com work');
 }
 ```
 
@@ -175,7 +175,7 @@ const skill = require('~/.openclaw/skills/oto-sessions');
 const { launchSession } = require('~/oto/lib/session-manager');
 
 // Use it
-const { page, save } = await launchSession('amazon', 'jebwa');
+const { page, save } = await launchSession('amazon', 'work');
 ```
 
 ## For Standalone Scripts
@@ -187,7 +187,7 @@ Use Oto directly without agents:
 const { launchSession } = require('~/oto/lib/session-manager');
 
 (async () => {
-  const { page, save, browser } = await launchSession('amazon', 'jebwa');
+  const { page, save, browser } = await launchSession('amazon', 'work');
   
   await page.goto('https://www.amazon.com/orders');
   await page.screenshot({ path: 'orders.png' });
@@ -208,16 +208,16 @@ node standalone-script.js
 ### 1. Create (Interactive)
 
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 # User logs in manually
-# Session saved to ~/oto/sessions/amazon--jebwa.json
+# Session saved to ~/oto/sessions/amazon--work.json
 ```
 
 ### 2. Use (Automation)
 
 ```js
 const { launchSession } = require('~/oto/lib/session-manager');
-const { page, browser, save } = await launchSession('amazon', 'jebwa');
+const { page, browser, save } = await launchSession('amazon', 'work');
 // page is fully authenticated
 ```
 
@@ -230,7 +230,7 @@ await save();  // Persist new cookies/storage
 ### 4. Delete (Cleanup)
 
 ```bash
-node ~/oto/scripts/delete-session.js amazon jebwa
+node ~/oto/scripts/delete-session.js amazon work
 # Session removed from disk
 ```
 
@@ -255,7 +255,7 @@ Launch a browser context with saved session.
 
 **Example:**
 ```js
-const { page, save, browser } = await launchSession('amazon', 'jebwa');
+const { page, save, browser } = await launchSession('amazon', 'work');
 await page.goto('https://www.amazon.com');
 // ... automation ...
 await save();
@@ -270,7 +270,7 @@ Check if a session exists without launching.
 
 **Example:**
 ```js
-if (!hasSession('tiktok', 'jebwa')) {
+if (!hasSession('tiktok', 'work')) {
   console.log('Session missing!');
 }
 ```
@@ -283,12 +283,12 @@ Get all saved sessions with metadata.
 ```js
 [
   {
-    key: 'amazon:jebwa',
+    key: 'amazon:work',
     platform: 'amazon',
-    account: 'jebwa',
+    account: 'work',
     url: 'https://www.amazon.com',
     savedAt: '2025-04-03T12:00:00Z',
-    label: 'amazon:jebwa'
+    label: 'amazon:work'
   },
   // ... more sessions
 ]
@@ -341,14 +341,14 @@ DEBUG=oto node your-script.js
 
 ```js
 // headless: false shows the browser
-const { page } = await launchSession('amazon', 'jebwa', false);
+const { page } = await launchSession('amazon', 'work', false);
 ```
 
 ### Inspect saved session file
 
 ```bash
 # See session metadata
-cat ~/oto/sessions/amazon--jebwa.json | jq . | head -20
+cat ~/oto/sessions/amazon--work.json | jq . | head -20
 ```
 
 ### Record video during automation
@@ -358,7 +358,7 @@ const { launchSession } = require('~/oto/lib/session-manager');
 
 const { page, save, browser, context } = await launchSession(
   'amazon', 
-  'jebwa',
+  'work',
   false // visible
 );
 
@@ -398,7 +398,7 @@ const { page, save, browser, context } = await launchSession(
    // Use Promise.all for parallel work
    const results = await Promise.all([
      launchSession('amazon', 'personal'),
-     launchSession('amazon', 'jebwa')
+     launchSession('amazon', 'work')
    ]);
    ```
 
@@ -420,21 +420,21 @@ node ~/oto/scripts/save-session.js <platform> <url> <account>
 
 A: Try with visible window:
 ```js
-const { page } = await launchSession('amazon', 'jebwa', false);
+const { page } = await launchSession('amazon', 'work', false);
 ```
 
 **Q: Session expires after a few days**
 
 A: Save a fresh one:
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 ```
 
 **Q: Cookie rejected / "Not authenticated"**
 
 A: The site might have updated auth. Try:
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 ```
 
 ## Related

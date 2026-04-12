@@ -11,7 +11,7 @@
  * 
  * Example (in another script):
  *   const result = require('child_process').execSync(
- *     'node launch-session.js amazon jebwa',
+ *     'node launch-session.js amazon work',
  *     { encoding: 'utf8' }
  *   );
  *   const session = JSON.parse(result);

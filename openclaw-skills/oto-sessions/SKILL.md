@@ -62,9 +62,9 @@ When you need to authenticate on a website:
 
 ```bash
 # Opens browser for manual login, saves session when you press Enter
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 
-# Session saved as amazon:jebwa — ready to reuse
+# Session saved as amazon:work — ready to reuse
 ```
 
 **In automation code:**
@@ -73,7 +73,7 @@ node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
 const { launchSession } = require('~/oto/lib/session-manager');
 
 // Launch with saved session — already authenticated, no login wall
-const { page, save } = await launchSession('amazon', 'jebwa');
+const { page, save } = await launchSession('amazon', 'work');
 
 // Go straight to authenticated pages
 await page.goto('https://www.amazon.com/orders');
@@ -94,16 +94,16 @@ node ~/oto/scripts/list-sessions.js
 # 
 #   Platform         Account          Saved
 #   ─────────────────────────────────────────
-#   amazon           jebwa            Apr 3, 9:00 AM
+#   amazon           work            Apr 3, 9:00 AM
 #   amazon           personal         Apr 3, 9:05 AM
-#   tiktok           jebwa            Apr 3, 9:10 AM
+#   tiktok           work            Apr 3, 9:10 AM
 ```
 
 ### Pattern 3: Delete a Session
 
 ```bash
 # Delete specific account on a platform
-node ~/oto/scripts/delete-session.js amazon jebwa
+node ~/oto/scripts/delete-session.js amazon work
 
 # Delete default account
 node ~/oto/scripts/delete-session.js tiktok
@@ -118,7 +118,7 @@ const { launchSession } = require('~/oto/lib/session-manager');
 
 // Load both accounts
 const personal  = await launchSession('amazon', 'personal');
-const business  = await launchSession('amazon', 'jebwa');
+const business  = await launchSession('amazon', 'work');
 
 // Each runs independently
 await personal.page.goto('https://www.amazon.com/orders');
@@ -135,14 +135,14 @@ await business.save();
 ```js
 const { launchSession, hasSession } = require('~/oto/lib/session-manager');
 
-if (!hasSession('tiktok', 'jebwa')) {
+if (!hasSession('tiktok', 'work')) {
   console.log('Session missing. Run:');
-  console.log('  node ~/oto/scripts/save-session.js tiktok https://tiktok.com/login jebwa');
+  console.log('  node ~/oto/scripts/save-session.js tiktok https://tiktok.com/login work');
   process.exit(1);
 }
 
 // Safe to use
-const { page } = await launchSession('tiktok', 'jebwa');
+const { page } = await launchSession('tiktok', 'work');
 ```
 
 ### Pattern 6: Debug Mode (Connect to Running Browser)
@@ -163,12 +163,12 @@ Sessions are stored as `platform:account`:
 
 | ID | Meaning |
 |----|---------|
-| `amazon:jebwa` | Amazon, Jebwa business account |
+| `amazon:work` | Amazon, work account |
 | `amazon:personal` | Amazon, personal account |
-| `tiktok:jebwa` | TikTok, Jebwa account |
-| `indeed:murat` | Indeed, Murat's employer account |
-| `poshmark:murat` | Poshmark, personal account |
-| `shopify:jebwa` | Shopify, business account |
+| `tiktok:work` | TikTok, work account |
+| `indeed:personal` | Indeed, Personal's employer account |
+| `poshmark:personal` | Poshmark, personal account |
+| `shopify:work` | Shopify, business account |
 | `myapp:alice` | Any app, Alice's account |
 
 **You define the names.** Oto doesn't know or care what the platform actually is — it's purely for your organization.
@@ -181,19 +181,19 @@ Sessions are stored as `platform:account`:
 # Save personal account
 node ~/oto/scripts/save-session.js amazon https://www.amazon.com personal
 
-# Save business account (Jebwa)
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+# Save business account (Work)
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 
 # Use in code
 const personal = await launchSession('amazon', 'personal');
-const business = await launchSession('amazon', 'jebwa');
+const business = await launchSession('amazon', 'work');
 ```
 
 ### TikTok Shop
 
 ```bash
-node ~/oto/scripts/save-session.js tiktok https://www.tiktok.com/login jebwa
-node ~/oto/scripts/save-session.js tiktok https://www.tiktok.com/login murat
+node ~/oto/scripts/save-session.js tiktok https://www.tiktok.com/login work
+node ~/oto/scripts/save-session.js tiktok https://www.tiktok.com/login personal
 
 # List what we have
 node ~/oto/scripts/list-sessions.js
@@ -202,21 +202,21 @@ node ~/oto/scripts/list-sessions.js
 ### eBay (Multi-Seller)
 
 ```bash
-node ~/oto/scripts/save-session.js ebay https://signin.ebay.com jebwa
-node ~/oto/scripts/save-session.js ebay https://signin.ebay.com murat
+node ~/oto/scripts/save-session.js ebay https://signin.ebay.com work
+node ~/oto/scripts/save-session.js ebay https://signin.ebay.com personal
 
 # Automate on both
-const jebwaSession = await launchSession('ebay', 'jebwa');
-const muratSession = await launchSession('ebay', 'murat');
+const workSession = await launchSession('ebay', 'work');
+const personalSession = await launchSession('ebay', 'personal');
 ```
 
 ### Shopify Admin
 
 ```bash
-node ~/oto/scripts/save-session.js shopify https://accounts.shopify.com jebwa
+node ~/oto/scripts/save-session.js shopify https://accounts.shopify.com work
 
 # Use
-const { page } = await launchSession('shopify', 'jebwa');
+const { page } = await launchSession('shopify', 'work');
 await page.goto('https://admin.shopify.com/');
 ```
 
@@ -251,12 +251,12 @@ Returns array of all saved sessions with metadata:
 ```js
 [
   {
-    key: 'amazon:jebwa',
+    key: 'amazon:work',
     platform: 'amazon',
-    account: 'jebwa',
+    account: 'work',
     url: 'https://www.amazon.com',
     savedAt: '2025-04-03T12:00:00Z',
-    label: 'amazon:jebwa'
+    label: 'amazon:work'
   },
   // ...
 ]
@@ -288,7 +288,7 @@ Oto Framework
 │   ├── list-sessions.js      # Show all sessions
 │   └── delete-session.js     # Remove a session
 └── sessions/                 # Local storage (git-ignored)
-    ├── amazon--jebwa.json
+    ├── amazon--work.json
     ├── amazon--personal.json
     └── registry.json
 ```
@@ -298,19 +298,19 @@ Oto Framework
 1. **Check if session exists:**
    ```js
    const { hasSession } = require('~/oto/lib/session-manager');
-   if (!hasSession('amazon', 'jebwa')) { /* prompt */ }
+   if (!hasSession('amazon', 'work')) { /* prompt */ }
    ```
 
 2. **If missing, prompt user:**
    ```
    You'll need to create a session first:
-   node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+   node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
    ```
 
 3. **If exists, launch and automate:**
    ```js
    const { launchSession } = require('~/oto/lib/session-manager');
-   const { page, save } = await launchSession('amazon', 'jebwa');
+   const { page, save } = await launchSession('amazon', 'work');
    // Automate...
    await save();
    ```
@@ -327,14 +327,14 @@ Oto Framework
 
 A: Some sites block headless browsers. Try:
 ```js
-const { page } = await launchSession('amazon', 'jebwa', headless=false);
+const { page } = await launchSession('amazon', 'work', headless=false);
 ```
 
 **Q: Session expires after a few days**
 
 A: Many sites invalidate cookies after inactivity. Save a fresh session when needed:
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 ```
 
 **Q: Can't find my sessions**
@@ -350,7 +350,7 @@ Sessions are in `~/oto/sessions/` with filenames like `platform--account.json`.
 
 A: Load them both:
 ```js
-const a = await launchSession('amazon', 'jebwa');
+const a = await launchSession('amazon', 'work');
 const b = await launchSession('amazon', 'personal');
 // Both run independently
 ```
@@ -363,4 +363,4 @@ const b = await launchSession('amazon', 'personal');
 
 ---
 
-Built and maintained by **Murat Bahar** (@mbahar).
+Built and maintained by the Oto community (@mbahar).

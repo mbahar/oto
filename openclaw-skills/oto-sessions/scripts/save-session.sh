@@ -4,10 +4,10 @@
 # Usage: save-session.sh <platform> <url> [account]
 # 
 # Examples:
-#   save-session.sh amazon https://www.amazon.com jebwa
-#   save-session.sh tiktok https://www.tiktok.com/login jebwa
-#   save-session.sh shopify https://accounts.shopify.com jebwa
-#   save-session.sh indeed https://employers.indeed.com murat
+#   save-session.sh amazon https://www.amazon.com work
+#   save-session.sh tiktok https://www.tiktok.com/login work
+#   save-session.sh shopify https://accounts.shopify.com work
+#   save-session.sh indeed https://employers.indeed.com personal
 # 
 # Process:
 #   1. Opens browser to <url>
@@ -37,12 +37,12 @@ if [ -z "$PLATFORM" ] || [ -z "$URL" ]; then
   echo "Usage: save-session.sh <platform> <url> [account]"
   echo ""
   echo "Examples:"
-  echo "  save-session.sh amazon    https://www.amazon.com          jebwa"
-  echo "  save-session.sh tiktok    https://www.tiktok.com/login    jebwa"
-  echo "  save-session.sh shopify   https://accounts.shopify.com    jebwa"
-  echo "  save-session.sh indeed    https://employers.indeed.com    murat"
-  echo "  save-session.sh poshmark  https://poshmark.com/login      murat"
-  echo "  save-session.sh ebay      https://signin.ebay.com         jebwa"
+  echo "  save-session.sh amazon    https://www.amazon.com          work"
+  echo "  save-session.sh tiktok    https://www.tiktok.com/login    work"
+  echo "  save-session.sh shopify   https://accounts.shopify.com    work"
+  echo "  save-session.sh indeed    https://employers.indeed.com    personal"
+  echo "  save-session.sh poshmark  https://poshmark.com/login      personal"
+  echo "  save-session.sh ebay      https://signin.ebay.com         work"
   exit 1
 fi
 

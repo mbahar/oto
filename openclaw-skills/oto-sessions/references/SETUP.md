@@ -64,7 +64,7 @@ After setup, you'll have:
 │   └── delete-session.js    # Remove a session
 ├── sessions/                # Local storage (NEVER committed)
 │   ├── registry.json        # Metadata index
-│   └── amazon--jebwa.json   # Example session
+│   └── amazon--work.json   # Example session
 └── node_modules/            # Playwright, etc.
 
 ~/.openclaw/skills/
@@ -86,10 +86,10 @@ After setup, you'll have:
 
 ```bash
 # Save an Amazon session
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 
 # Browser opens → you log in → press ENTER when done
-# Session saved as amazon:jebwa
+# Session saved as amazon:work
 ```
 
 ### List Sessions
@@ -102,7 +102,7 @@ node ~/oto/scripts/list-sessions.js
 # 
 #   Platform         Account          Saved
 #   ───────────────────────────────────────────
-#   amazon           jebwa            Apr 3, 9:00 AM
+#   amazon           work            Apr 3, 9:00 AM
 ```
 
 ### Use in Automation
@@ -111,7 +111,7 @@ node ~/oto/scripts/list-sessions.js
 const { launchSession } = require('~/oto/lib/session-manager');
 
 // Launch with saved session
-const { page, save, browser } = await launchSession('amazon', 'jebwa');
+const { page, save, browser } = await launchSession('amazon', 'work');
 
 // Fully authenticated — no login wall
 await page.goto('https://www.amazon.com/orders');
@@ -129,40 +129,40 @@ await browser.close();
 
 ```bash
 # Amazon
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 node ~/oto/scripts/save-session.js amazon https://www.amazon.com personal
 
 # eBay
-node ~/oto/scripts/save-session.js ebay https://signin.ebay.com jebwa
+node ~/oto/scripts/save-session.js ebay https://signin.ebay.com work
 
 # Poshmark (Resale)
-node ~/oto/scripts/save-session.js poshmark https://poshmark.com/login murat
+node ~/oto/scripts/save-session.js poshmark https://poshmark.com/login personal
 
 # Shopify (Admin)
-node ~/oto/scripts/save-session.js shopify https://accounts.shopify.com jebwa
+node ~/oto/scripts/save-session.js shopify https://accounts.shopify.com work
 ```
 
 ### Social & Creator Platforms
 
 ```bash
 # TikTok Shop
-node ~/oto/scripts/save-session.js tiktok https://www.tiktok.com/login jebwa
+node ~/oto/scripts/save-session.js tiktok https://www.tiktok.com/login work
 
 # Instagram (Creator/Business)
-node ~/oto/scripts/save-session.js instagram https://instagram.com/accounts/login/ jebwa
+node ~/oto/scripts/save-session.js instagram https://instagram.com/accounts/login/ work
 ```
 
 ### Services & Tools
 
 ```bash
 # PayPal
-node ~/oto/scripts/save-session.js paypal https://www.paypal.com/signin jebwa
+node ~/oto/scripts/save-session.js paypal https://www.paypal.com/signin work
 
 # Twilio Console
-node ~/oto/scripts/save-session.js twilio https://console.twilio.com jebwa
+node ~/oto/scripts/save-session.js twilio https://console.twilio.com work
 
 # Indeed (Employer)
-node ~/oto/scripts/save-session.js indeed https://employers.indeed.com murat
+node ~/oto/scripts/save-session.js indeed https://employers.indeed.com personal
 ```
 
 ## Session File Format
@@ -172,7 +172,7 @@ Sessions are stored as JSON with encrypted credentials:
 ```json
 {
   "platform": "amazon",
-  "account": "jebwa",
+  "account": "work",
   "url": "https://www.amazon.com",
   "savedAt": "2025-04-03T12:00:00Z",
   "cookies": [ /* encrypted */ ],
@@ -193,11 +193,11 @@ git clone https://github.com/mbahar/oto.git ~/oto
 cd ~/oto && npm install
 ```
 
-### "Session not found: amazon:jebwa"
+### "Session not found: amazon:work"
 
 ```bash
 # Create the session
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 
 # Or list what you have
 node ~/oto/scripts/list-sessions.js
@@ -209,7 +209,7 @@ Some sites block headless browsers. Try:
 
 ```js
 // In your automation code, use headless=false
-const { page } = await launchSession('amazon', 'jebwa', false);
+const { page } = await launchSession('amazon', 'work', false);
 // Browser now shows in a window
 ```
 
@@ -218,7 +218,7 @@ const { page } = await launchSession('amazon', 'jebwa', false);
 Many sites invalidate cookies after inactivity. Save a fresh session:
 
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 ```
 
 ### Playwright not installed

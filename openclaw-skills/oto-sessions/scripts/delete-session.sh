@@ -4,9 +4,9 @@
 # Usage: delete-session.sh <platform> [account]
 # 
 # Examples:
-#   delete-session.sh amazon jebwa      # Delete amazon:jebwa
+#   delete-session.sh amazon work      # Delete amazon:work
 #   delete-session.sh amazon            # Delete amazon:default
-#   delete-session.sh tiktok jebwa
+#   delete-session.sh tiktok work
 
 set -e
 
@@ -28,7 +28,7 @@ if [ -z "$PLATFORM" ]; then
   echo "Usage: delete-session.sh <platform> [account]"
   echo ""
   echo "Examples:"
-  echo "  delete-session.sh amazon jebwa"
+  echo "  delete-session.sh amazon work"
   echo "  delete-session.sh tiktok"
   exit 1
 fi

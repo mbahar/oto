@@ -19,14 +19,14 @@ cp -r oto-sessions ~/.openclaw/skills/
 
 ```bash
 # Save a session (opens browser for manual login)
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 
 # List saved sessions
 node ~/oto/scripts/list-sessions.js
 
 # Use in automation code
 const { launchSession } = require('~/oto/lib/session-manager');
-const { page, save } = await launchSession('amazon', 'jebwa');
+const { page, save } = await launchSession('amazon', 'work');
 // Already authenticated — no login wall!
 ```
 
@@ -48,7 +48,7 @@ const { page, save } = await launchSession('amazon', 'jebwa');
 ### Save a Session
 
 ```bash
-node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
+node ~/oto/scripts/save-session.js amazon https://www.amazon.com work
 ```
 
 ### Use in Automation
@@ -56,7 +56,7 @@ node ~/oto/scripts/save-session.js amazon https://www.amazon.com jebwa
 ```js
 const { launchSession } = require('~/oto/lib/session-manager');
 
-const { page, save, browser } = await launchSession('amazon', 'jebwa');
+const { page, save, browser } = await launchSession('amazon', 'work');
 await page.goto('https://www.amazon.com/orders');
 // Fully authenticated — no login required
 
@@ -68,7 +68,7 @@ await browser.close();
 
 ```js
 const personal = await launchSession('amazon', 'personal');
-const business = await launchSession('amazon', 'jebwa');
+const business = await launchSession('amazon', 'work');
 
 // Each runs independently
 await personal.page.goto('https://www.amazon.com');
@@ -98,7 +98,7 @@ await business.page.goto('https://sellercentral.amazon.com');
 
 ## License
 
-MIT — Built by Murat Bahar
+MIT — Built by Personal Bahar
 
 ---
 

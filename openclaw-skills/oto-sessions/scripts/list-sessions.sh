@@ -8,8 +8,8 @@
 #   
 #   Platform         Account          Saved
 #   ──────────────────────────────────────────
-#   amazon           jebwa            Apr 3, 9:00 AM
-#   tiktok           jebwa            Apr 3, 9:10 AM
+#   amazon           work            Apr 3, 9:00 AM
+#   tiktok           work            Apr 3, 9:10 AM
 
 set -e
 
